@@ -1,0 +1,43 @@
+<div class="box box-primary">
+   
+    <div class="box-header with-border">
+      <h3 class="box-title">Relatórios de vendas</h3>
+    </div>
+
+  <div class="box-body" >
+    <table id="lstVendas" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Valor</th>
+          <th>Valor Pago</th>
+           <th>A Receber</th>
+          <th>Tipo</th>
+          <th>Quantidade</th>
+          <th>Data</th>
+          <th>Cliente</th>
+          <th>Observações</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="a in vm.vendas track by $index">
+          <td>{{a.produto.nomeProduto}}</td>
+          <td>{{a.valorTotalVenda | currency:"R$ ":2}}</td>
+          <td>{{a.valorPagoCliente | currency:"R$ ":2}}</td>
+          <td>{{a.aReceber | currency:"R$ ":2}}</td>
+          <td>{{a.tipoVenda}}</td>
+          <td>{{a.quantidadeVenda}}</td>
+          <td>{{a.dataVenda  | date:'dd/MM/yyyy'}}</td>
+          <td>{{a.cliente.nomeCliente}}</td>
+          <td>{{a.observacoes}}</td>
+          <td>
+            <a data-ng-click="vm.editar(a._id)" data-toggle="tooltip" title="Editar">
+             <i class="glyphicon glyphicon-pencil blue"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

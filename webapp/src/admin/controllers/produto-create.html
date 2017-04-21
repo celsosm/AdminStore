@@ -1,0 +1,186 @@
+<div class="alert alert-success fade in alert-dismissable" style="margin-top:18px;" data-ng-show="showMessage">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+    <strong>{{message}}</strong> 
+</div>
+
+<form class="form-cadastro formAdmin" name="formProdutoCreate" data-ng-submit="vm.save()" novalidate>
+  <div class="box box-primary">
+   
+    <div class="box-header with-border">
+      <h3 class="box-title">Cadastrar Produto</h3>
+    </div>
+
+    <div class="box-body">
+      
+      <div class="row">
+        <div class="box-body col-lg-6"">
+          <div class="form-group">
+            <div class="col-sm-4">
+               <label for="nomeProduto" class="control-label">Nome do Produto</label>
+            </div>
+             <div class="col-sm-6 input-group" data-ng-class="{'has-error' : formProdutoCreate.nomeProduto.$invalid && !formProdutoCreate.nomeProduto.$pristine }">
+                <input data-ng-model="vm.produto.nomeProduto" id="nomeProduto" type="text" name="nomeProduto"  required
+                class="validate form-control" >
+            </div>
+          </div>
+        </div>
+       
+        <div class="box-body col-lg-6"">
+          <div class="form-group">
+            <div class="col-sm-4">
+               <label for="valorDeVenda" class="control-label">Valor de Venda</label>
+            </div>
+             <div class="col-sm-6 input-group" data-ng-class="{'has-error' : formProdutoCreate.valorDeVenda.$invalid && !formProdutoCreate.valorDeVenda.$pristine }">
+                <input data-ng-model="vm.produto.valorDeVenda" id="valorDeVenda" type="text" name="valorDeVenda"  required
+                class="validate form-control" ng-keypress="vm.onlyMoneyVemda($event, vm.produto.valorDeVenda)">
+                     <a data-ng-click="vm.limparValorDeVenda()"  
+                     class="input-group-addon  btn btn-default btn-flat" 
+                  title="Mais">
+                      <i class="glyphicon glyphicon-trash text-aqua"></i>
+                  </a>
+            </div>
+          </div>
+        </div>
+       </div>
+
+       <div class="row">
+        <div class="box-body col-lg-6"">
+          <div class="form-group">
+            <div class="col-sm-4">
+               <label for="valorDeCompra" class="control-label">Valor de Compra</label>
+            </div>
+             <div class="col-sm-6 input-group">
+                <input data-ng-model="vm.produto.valorDeCompra" id="valorDeCompra" type="text" 
+                class="validate form-control" 
+                ng-keypress="vm.onlyMoneyCompra($event, vm.produto.valorDeCompra)">
+                     <a data-ng-click="vm.limparValorDeCompra()"  
+                     class="input-group-addon  btn btn-default btn-flat" 
+                  title="Limpar">
+                      <i class="glyphicon glyphicon-trash text-aqua"></i>
+                  </a>
+            </div>
+          </div>
+        </div>
+       
+        <div class="box-body col-lg-6"">
+          <div class="form-group">
+            <div class="col-sm-4">
+               <label for="datepicker" class="control-label">Data de Validade</label>
+            </div>
+
+              <div class="col-sm-6 input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar text-aqua"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right"
+                  data-ng-model="vm.produto.dataValidate" id="datepicker">
+              </div>
+          </div>
+        </div>
+       </div>
+
+       <div class="row">
+        <div class="box-body col-lg-6"">
+          <div class="form-group">
+            <div class="col-sm-4">
+               <label for="quantidadeEstoque" class="control-label">Quantidade Entrada</label>
+            </div>
+             <div class="col-sm-6 input-group"  data-ng-class="{'has-error' : formProdutoCreate.quantidadeEstoque.$invalid && !formProdutoCreate.quantidadeEstoque.$pristine }">
+                <input data-ng-model="vm.produto.quantidadeEstoque" id="quantidadeEstoque" type="text"  name="quantidadeEstoque"  required
+                class="validate form-control" >
+            </div>
+          </div>
+        </div>
+       
+        <div class="box-body col-lg-6"">
+          <div class="form-group">
+            <div class="col-sm-4">
+               <label for="quantidadeMinimaEstoque" class="control-label">Quantidade Minima</label>
+            </div>
+             <div class="col-sm-6 input-group" >
+                <input data-ng-model="vm.produto.quantidadeMinimaEstoque" 
+                id="quantidadeMinimaEstoque" type="text" 
+                class="validate form-control" >
+            </div>
+          </div>
+        </div>
+       </div>
+
+        <div class="row">
+        <div class="box-body col-lg-6"">
+          <div class="form-group">
+            <div class="col-sm-4">
+               <label for="fornecedor" class="control-label">
+               Informações do Fornecedor</label>
+            </div>
+             <div class="col-sm-6 input-group">
+                <textarea data-ng-model="vm.produto.fornecedor" id="fornecedor" 
+                placeholder="Informações gerais (telefone/endereço)"
+                class="validate form-control" />
+            </div>
+          </div>
+        </div>
+       
+          <div class="box-body col-lg-6"">
+            <div class="form-group">
+              <div class="col-sm-4">
+                 <label for="ativo" class="control-label">Ativo</label>
+              </div>
+               <div class="col-sm-6 input-group">
+                  <select class="form-control" data-ng-model="vm.produto.ativo">
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+         </div>
+        
+        <div class="row">
+          <div class="box-body col-lg-6"">
+             <input type="submit" class="btn btn-primary" value="Salvar">
+          </div>
+        </div>
+    </div>
+  </div>
+</form>
+
+<script type="text/javascript"> 
+                $(function(){
+                            $('#datepicker').datepicker({
+                              autoclose: true
+                            });
+
+                            $('#quantidadeEstoque').bind('keydown',soNums); // o "#input" é o input que vc quer aplicar a funcionalidade
+
+                            $('#quantidadeMinimaEstoque').bind('keydown',soNums); // o "#input" é o input que vc quer aplicar a funcionalidade
+                });
+                
+ 
+    function soNums(e){
+     
+        //teclas adicionais permitidas (tab,delete,backspace,setas direita e esquerda)
+        keyCodesPermitidos = new Array(8,9,37,39,46);
+         
+        //numeros e 0 a 9 do teclado alfanumerico
+        for(x=48;x<=57;x++){
+            keyCodesPermitidos.push(x);
+        }
+         
+        //numeros e 0 a 9 do teclado numerico
+        for(x=96;x<=105;x++){
+            keyCodesPermitidos.push(x);
+        }
+         
+        //Pega a tecla digitada
+        keyCode = e.which; 
+         
+        //Verifica se a tecla digitada é permitida
+        if ($.inArray(keyCode,keyCodesPermitidos) != -1){
+            return true;
+        }    
+        return false;
+    }
+
+    
+</script>

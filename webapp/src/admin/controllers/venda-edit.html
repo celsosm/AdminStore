@@ -1,0 +1,216 @@
+<div class="alert alert-success fade in alert-dismissable" style="margin-top:18px;" data-ng-show="showMessage">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+    <strong>{{message}}</strong> 
+</div>
+
+<form class="form-cadastro formAdmin" name="formVendaCreate" data-ng-submit="vm.save()" novalidate>
+  <div class="box box-primary">
+ 
+    <div class="box-header with-border">
+      <h3 class="box-title">Editar Venda</h3>
+    </div>
+
+    <div class="box-body">
+
+        <div class="row">
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="idProduto" class="control-label">Produto</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <select class="form-control" 
+                      data-ng-model="vm.venda.produto._id" 
+                      name="produto" disabled
+                      data-ng-options="produto._id as produto.nomeProduto for produto in vm.listProdutoVenda">
+                        <option value="">Selecione um produto</option>
+                    </select>
+                </div>
+              </div>
+            </div>
+         
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="idProduto" class="control-label">Tipo de Venda</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <select class="form-control" data-ng-model="vm.venda.tipoVenda">
+                      <option value="">Selecione</option>
+                      <option value="Dinheiro">Dinheiro</option>
+                      <option value="Cartão">Cartão</option>
+                      <option value="Fiado">Fiado</option>
+                    </select>                  
+                </div>
+              </div>
+            </div>    
+         </div>
+
+         <div class="row">
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="quantidadeVenda" class="control-label">Quantidade a Vender</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                     <input data-ng-model="vm.venda.quantidadeVenda" id="quantidadeVenda" type="text" name="quantidadeVenda" 
+                    class="validate form-control"  disabled>                   
+                </div>                
+              </div>
+            </div>        
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="idProduto" class="control-label">Quantidade em Estoque</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                   <input type="text" class="form-control" value="{{quantidadeEstoque}}" disabled>
+                 </div>
+              </div>
+            </div>
+        </div>
+      
+      <div class="row">
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="valorDeVenda" class="control-label">Valor Com desconto</label>
+                </div>                 
+                <div class="col-sm-6 input-group">
+                    <span class="input-group-addon">R$</span>
+                    <input type="text" data-ng-model="vm.venda.valorUnitario" 
+                    id="valorUnitario" class="form-control" disabled name="valorUnitario">                   
+                </div>
+              </div>
+          </div>
+
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="valorDeVenda" class="control-label">Valor produto</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                  <input type="text" class="form-control" value="{{valorDeVenda}}" disabled>
+                    
+                </div>
+              </div>
+            </div>                  
+        </div>
+
+         <div class="row">
+            <div class="box-body col-lg-6">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="contato" class="control-label">Observações</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <textarea data-ng-model="vm.venda.observacoes" id="contato" 
+                    placeholder="Adicione aqui qualquer observação sobre a venda" 
+                    class="validate form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="box-body col-lg-6">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="idProduto" class="control-label">Cliente</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <select class="form-control" data-ng-model="vm.venda.cliente._id"
+                      data-ng-options="cliente._id as cliente.nomeCliente for cliente in vm.listClienteVenda">
+                      <option value="">Selecione um cliente</option>
+                    </select>
+
+                </div>
+              </div>
+            </div>
+         </div>
+
+          <div class="row">
+            <div class="box-body col-lg-6">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="contato" class="control-label">Valor a Pagar</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <span class="input-group-addon">R$</span>
+                    <textarea rows="1" cols="50" data-ng-model="vm.venda.valorTotalVenda" 
+                    id="contato" style="font-size: 30px;"  readonly="true" 
+                    class="validate form-control" >0.00</textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-body col-lg-6">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="contato" class="control-label">Valor a Pago pelo Cliente</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <span class="input-group-addon">R$</span>
+                    <textarea rows="1" cols="50" data-ng-model="vm.venda.valorPagoCliente" ng-keyup="vm.valorAReceber($event);"
+                    id="contato" style="font-size: 30px;" 
+                    class="validate form-control" >0.00</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="box-body col-lg-6">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="contato" class="control-label">A Receber</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <span class="input-group-addon">R$</span>
+                    <textarea rows="1" cols="50" data-ng-model="vm.venda.aReceber" 
+                    id="contato" style="font-size: 30px;"  readonly="true" 
+                    class="validate form-control" >0.00</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+                            
+          <div class="row">
+            <div class="box-body col-lg-6"">
+               <input type="submit" class="btn btn-primary" value="Salvar">
+            </div>
+          </div>
+
+      </div>
+  </div>
+</form>
+
+<script type="text/javascript">
+  $(function(){
+    $('#quantidadeVenda').bind('keydown',soNums); // o "#input" é o input que vc quer aplicar a funcionalidade
+});
+ 
+function soNums(e){
+ 
+    //teclas adicionais permitidas (tab,delete,backspace,setas direita e esquerda)
+    keyCodesPermitidos = new Array(8,9,37,39,46);
+     
+    //numeros e 0 a 9 do teclado alfanumerico
+    for(x=48;x<=57;x++){
+        keyCodesPermitidos.push(x);
+    }
+     
+    //numeros e 0 a 9 do teclado numerico
+    for(x=96;x<=105;x++){
+        keyCodesPermitidos.push(x);
+    }
+     
+    //Pega a tecla digitada
+    keyCode = e.which; 
+     
+    //Verifica se a tecla digitada é permitida
+    if ($.inArray(keyCode,keyCodesPermitidos) != -1){
+        return true;
+    }    
+    return false;
+}
+
+</script>

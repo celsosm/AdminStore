@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+<meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminStore</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <!--link rel="stylesheet" type="text/css" href="materialize/css/materialize.min.css"-->
+
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/bootstrap/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/bootstrap/dist/css/skins/skin-blue.min.css">
+  <style type="text/css">
+    .header-box-confirm{
+      border-top-color: #f39c12;
+      color: #31708f;
+      background-color: #d9edf7;
+      border-color: #bce8f1;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+  </style>
+
+ <!-- Font Awesome -->
+ 
+   <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="css/ionicons.min.css">
+
+  
+  <!--adicionais-->
+  <link rel="stylesheet" href="bootstrap/plugins/datatables/dataTables.bootstrap.css">
+   <link rel="stylesheet" href="bootstrap/plugins/pace/pace.min.css">
+
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="bootstrap/plugins/datepicker/datepicker3.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header" data-ng-show="userLogado.showLayout">
+
+    <!-- Logo -->
+    <a href="#" class="logo" id="top">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>ST</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Admin</b>Store</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation" data-ng-show="userLogado.showLayout">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only"></span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+
+          <!-- Notifications Menu -->
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">{{totalAvisoSize}}</span>
+            </a>
+            <ul class="dropdown-menu" style=" border:1px solid #f39c12;">
+              <li class="header" style="color: #fff; background: #f39c12;"><strong>{{produtoAVencerSize}} produtos a vencer ou vencidos</strong></li>
+              <li>
+                <!-- Inner Menu: contains the notifications -->
+                <ul class="menu">
+                  <li data-ng-repeat="p1 in produtoAVencer track by $index"><!-- start notification -->
+                    <a href="#/produto/edit/{{p1._id}}">
+                      <i class="fa fa-calendar-times-o text-yellow"></i> 
+                      {{p1.nomeProduto}} - {{p1.dataValidate | date:'dd/MM/yyyy'}}
+                    </a>
+                  </li>
+                  <!-- end notification -->
+                </ul>
+              </li>
+              <li class="header"  style="color: #fff; background: #f39c12;"><strong>{{produtoEstoqueBaixoSize}} produtos baixo estoque</strong></li>
+              <li>
+                <!-- Inner Menu: contains the notifications -->
+                <ul class="menu">
+                  <li data-ng-repeat="p2 in produtoEstoqueBaixo track by $index"><!-- start notification -->
+                    <a href="#/produto/edit/{{p2._id}}">
+                      <i class="fa fa-bars text-yellow"></i> 
+                      {{p2.nomeProduto}} - {{p2.quantidadeEstoque}}
+                    </a>
+                  </li>
+                  <!-- end notification -->
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <!-- User Account Menu -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- The user image in the navbar-->
+              <img src="bootstrap/dist/img/{{userLogado.avatar}}" class="user-image" alt="User Image">
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">{{userLogado.nomeUser}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+                <img src="bootstrap/dist/img/{{userLogado.avatar}}" class="img-circle" alt="User Image">
+
+                <p>
+                  {{userLogado.nomeUser}}
+                  <small>{{userLogado.cargo}}</small>
+                </p>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  
+                </div>
+                <div class="pull-right">
+                  <a href="#/" class="btn btn-default btn-flat">Sair</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar" data-ng-show="userLogado.showLayout">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <!-- Optionally, you can add icons to the links -->
+         <li class="active" data-ng-show="userLogado.roleVendaCad">
+            <a href="#/venda/create">
+                <i class="fa fa-laptop"></i> <span>Registrar Venda</span>
+            </a>
+        </li>
+        
+        <li class="active" data-ng-show="userLogado.roleProdutoLst">
+            <a href="#/produto/create">
+                <i class="fa fa-edit"></i> <span>Cadastrar Produto</span>
+            </a>
+        </li>
+               
+        <li class="active" data-ng-show="userLogado.roleProdutoLst">
+            <a href="#/produto/list">
+                <i class="fa fa-table"></i> <span>Listar Produtos</span>
+            </a>
+        </li>
+
+
+        <li class="active" data-ng-show="userLogado.roleClienteCad">
+            <a href="#/cliente/create">
+                <i class="fa fa-fw fa-user-plus"></i> <span>Cadastrar Cliente</span>
+            </a>
+        </li>
+               
+        <li class="active" data-ng-show="userLogado.roleClienteLst">
+            <a href="#/cliente/list">
+                <i class="fa fa-fw fa-users"></i> <span>Listar Clientes</span>
+            </a>
+        </li>
+
+        <li class="active" data-ng-show="userLogado.roleVendaLst">
+            <a href="#/venda/list">
+                <i class="fa fa-dashboard"></i> <span>Relatorio de Vendas</span>
+            </a>
+        </li>
+
+        <li class="active" data-ng-show="userLogado.roleCompraCad">
+            <a href="#/compra/create">
+                <i class="fa fa-dollar fa-list"></i> <span>CadastrarCompras</span>
+            </a>
+        </li>
+
+        <li class="active" data-ng-show="userLogado.roleCompraLst">
+            <a href="#/compra/list">
+                <i class="fa fa-dollar"></i> <span>ListarCompras</span>
+            </a>
+        </li>
+
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" data-ng-show="userLogado.showLayout">
+        <!-- Main content -->
+        <div class="alert alert-success fade in alert-dismissable" 
+            style="margin-top:18px;" data-ng-show="messageSuccess.length > 0">
+          <a href="#" class="close" data-dismiss="alert" 
+            aria-label="close" title="close">
+            ×
+          </a>
+          <strong>{{messageSuccess}}</strong> 
+        </div>
+
+        <div class="alert alert-warning  fade in alert-dismissable" 
+               style="margin-top:18px;" data-ng-show="messageWarning.length > 0">
+                <a href="#" class="close" data-dismiss="alert" 
+                   aria-label="close" title="close">
+                 ×</a>
+                <strong>{{messageWarning}}</strong> 
+          </div>
+
+        <section class="content">
+          <div ui-view>
+              <h1>Bem vindo a AdminStore</h1> 
+          </div>          
+        </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" style="margin-left: 0px;" data-ng-show="showLayoutLogin">
+        <!-- Main content -->
+        <section class="content">
+          <div ui-view>
+              <h1>Bem vindo a AdminStore</h1> 
+          </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer" data-ng-show="userLogado.showLayout">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+      
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+  </footer>
+
+    <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg" data-ng-show="userLogado.showLayout"></div>
+</div>
+
+
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 2.2.3 -->
+<script src="bootstrap/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="bootstrap/bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="bootstrap/dist/js/app.min.js"></script>
+
+<!-- DataTables -->
+<script src="bootstrap/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="bootstrap/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="bootstrap/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="bootstrap/plugins/fastclick/fastclick.js"></script>
+
+<!-- bootstrap datepicker -->
+<script src="bootstrap/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+<script src="bootstrap/plugins/pace/pace.min.js"></script>
+
+<!-- ============================ MEAN =====================================-->
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/routes.js"></script>
+<script type="text/javascript" src="js/scrollUp.min.js"></script>
+<script type="text/javascript" src="js/validator.min.js"></script>
+
+<script type="text/javascript" src="src/admin/module.js"></script>
+<script type="text/javascript" src="src/admin/module-controllers.js"></script>
+<script type="text/javascript" src="src/admin/module-services.js"></script>
+<script type="text/javascript" src="src/admin/module-factories.js"></script>
+<script type="text/javascript" src="src/admin/module-directives.js"></script>
+<script type="text/javascript" src="src/admin/module-filters.js"></script>
+
+
+<script type="text/javascript" src="src/admin/controllers/produto-create.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/produto-edit.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers//produto-list.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/cliente-create.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/cliente-edit.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/cliente-list.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/venda-create.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/venda-edit.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/venda-list.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/compra-create.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/compra-edit.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/compra-list.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/login.controller.js"></script>
+<script type="text/javascript" src="src/admin/controllers/service.js"></script>
+
+<!--Jquery-->
+<!--script type="text/javascript" src="js/jquery-2.1.4.min.js"></script-->
+<!---materialize js-->
+<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+<script type="text/javascript"> 
+    (function($){ 
+                $(function(){
+                            $('.button-collapse').sideNav();
+                            });
+
+                })(jQuery);
+</script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
+</body>
+</html>

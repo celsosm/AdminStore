@@ -1,0 +1,20 @@
+(function(){
+'use strict';
+  angular
+    .module('Admin.controllers',[
+      'ProdutoCreateControllers',
+      'ProdutoListControllers',
+      'ProdutoEditControllers',
+      'ProdutoCreateControllers',
+      'ClienteCreateControllers',
+      'ClienteEditControllers',
+      'ClienteListControllers',
+      'LoginControllers',
+      'VendaListControllers',
+      'VendaCreateControllers',
+      'VendaEditControllers',
+      'CompraCreateControllers',
+      'CompraEditControllers',
+      'CompraListControllers'
+    ]);
+}());

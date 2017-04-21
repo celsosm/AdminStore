@@ -1,0 +1,107 @@
+<form class="form-cadastro formAdmin" name="formCompraCreate" data-ng-submit="vm.save()" novalidate>
+  <div class="box box-primary">
+ 
+    <div class="box-header with-border">
+      <h3 class="box-title">Cadastrar Compras</h3>
+    </div>
+
+    <div class="box-body">
+
+        <div class="row">
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="nomeLoja" class="control-label">Nome do Estabelecimento</label>
+                </div>
+                 <div class="col-sm-6 input-group" data-ng-class="{'has-error' : formCompraCreate.nomeLoja.$invalid && !formCompraCreate.nomeLoja.$pristine }">
+                    <input data-ng-model="vm.compra.nomeLoja" id="nomeLoja" type="text" required name="nomeLoja" 
+                    class="validate form-control" >
+                </div>
+              </div>
+            </div>
+         
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="valorTotalCompra" class="control-label">Valor da Compra</label>
+                </div>
+                 <div class="col-sm-6 input-group" data-ng-class="{'has-error' : formCompraCreate.valorTotalCompra.$invalid && !formCompraCreate.valorTotalCompra.$pristine }">
+                    <input data-ng-model="vm.compra.valorTotalCompra" id="valor" type="text" required name="valorTotalCompra" 
+                    class="validate form-control" ng-keypress="vm.onlyMoneyValor($event, vm.compra.valorTotalCompra)">
+                         <a data-ng-click="vm.limparValorDeCompra()"  
+                         class="input-group-addon" 
+                      title="Mais">
+                          <i class="glyphicon glyphicon-trash  text-aqua"></i>
+                      </a>
+                </div>
+              </div>
+            </div>
+              
+          </div>
+
+          <div class="row">
+            <div class="box-body col-lg-6"">
+                <div class="form-group">
+                  <div class="col-sm-4">
+                     <label class="control-label">Observações</label>
+                  </div>
+                   <div class="col-sm-6 input-group">
+                      <textarea rows="4" cols="50" data-ng-model="vm.compra.observacao" id="observacao" placeholder="Informações gerais (telefone/endereço)" 
+                      class="validate form-control" />
+                  </div>
+                </div>
+              </div>
+
+            <div class="box-body col-lg-6"">
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <label for="ativo" class="control-label">Ativo</label>
+                </div>
+                 <div class="col-sm-6 input-group">
+                    <select class="form-control" data-ng-model="vm.compra.ativo"
+                     data-ng-required="true">
+                      <option value="">Selecione</option>
+                      <option value="Sim">Sim</option>
+                      <option value="Não">Não</option>
+                    </select>                  
+                </div>
+              </div>
+            </div>
+         </div>
+
+         <div class="row">
+           <div class="box-body col-lg-6"">
+            <div class="form-group">
+              <div class="col-sm-4">
+                 <label for="datepicker" class="control-label">Data da Compra</label>
+              </div>
+
+                <div class="col-sm-6 input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar  text-aqua"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right"
+                    data-ng-model="vm.compra.dataCompra" id="datepicker">
+                </div>
+            </div>
+          </div>
+        </div>
+          
+          <div class="row">
+            <div class="box-body col-lg-6"">
+               <input type="submit" id="salvar" class="btn btn-primary" value="Salvar">
+            </div>
+          </div>
+
+      </div>
+  </div>
+
+</form>
+
+<script type="text/javascript"> 
+                $(function(){
+                            $('#datepicker').datepicker({
+                              autoclose: true
+                            });
+                });
+</script>

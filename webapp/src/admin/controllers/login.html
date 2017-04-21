@@ -1,0 +1,54 @@
+<!-- /.login-logo -->
+<div class="login-box">
+  <div class="login-logo">
+    <a><b>Admin</b>Store</a>
+  </div>
+  <div class="login-box-body">
+    <p class="login-box-msg">Informe seu usuario e senha de acesso</p>
+
+        <form class="form-cadastro formAdmin" name="formLogin" id="formLogin" data-ng-submit="vm.login()" novalidate>
+
+          <div class="form-group has-feedback" data-ng-class="{'has-error' : formLogin.login.$invalid && !formLogin.login.$pristine }">
+            <input type="text" class="form-control" placeholder="Login"
+            data-ng-model="vm.user.login" name="login" required>
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback" data-ng-class="{'has-error' : formLogin.senha.$invalid && !formLogin.senha.$pristine }">
+            <input type="password" class="form-control" name="senha" placeholder="Senha"
+            data-ng-model="vm.user.senha" required>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">
+              
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+    <!-- /.social-auth-links -->
+    <div class="alert alert-warning  fade in alert-dismissable" style="margin-top:18px;" data-ng-show="showMessageAlert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+      <strong>{{message}}</strong> 
+  </div>
+
+      <div class="alert alert-success fade in alert-dismissable" style="margin-top:18px;" data-ng-show="showMessageSucess">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+        <strong>{{message}}</strong> 
+    </div>
+
+    </div>
+  <!-- /.login-box-body -->
+</div>
+
+
+<script type="text/javascript">
+      
+</script>
+
+
+
